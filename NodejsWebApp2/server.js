@@ -2,9 +2,26 @@ var path = require('path');
 var fs = require('fs');
 var express = require('express');
 var app = express();
+
+//SSL
+var key = fs.readFileSync('certs/djulz-linux_radiorunners_private.key');
+var cert = fs.readFileSync( 'certs/djulz-linux_radiorunners.crt' );
+
+var httpsOptions = {
+    key: key,
+    cert: cert,
+    passphrase: "SuE89p91F1rad"
+};
+
+
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var https = require('https').Server(httpsOptions, app);
+var io = require('socket.io')(https);
 var ss = require('socket.io-stream');
+
+//var appSecure = express.createServer(httpsOptions);
+
+
 
 app.use(express.static('public'));
 
@@ -68,6 +85,6 @@ io.on('connection', function (socket) {
 //    });
 //});
 
-http.listen(3000, function () {
-    console.log('listening on *:3000');
+https.listen(41117, function () {
+    console.log('listening on *:41117');
 });

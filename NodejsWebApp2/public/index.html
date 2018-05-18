@@ -1,77 +1,19 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Radio Runners</title>
-    <style>
-        * {
-        }
-
-        body {
-            font: 13px Helvetica, Arial;
-        }
-
-        #score {
-            font-size: 50px;
-            color: darkblue;
-            font-weight: bold;
-            padding: 20px;
-        }
-
-        .motor {
-            border: 1px solid black;
-            width: 200px;
-            height: 100px;
-            font-size: 20px;
-            display: inline-block;
-            padding: 10px;
-        }
-
-        #stages {
-            border: 1px solid black;
-            margin-top: 20px;
-            width: 200px;
-        }
-    </style>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="js/socket.io-stream.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/soundController.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-        window.onload = function () {
-            
-            var infoDiv = $("#info");
-            infoDiv.click(function () {
-                //soundController.startRecording();
-                console.log("click");
-            });
-
-            $('#play').click(() => {
-                if (soundController.recording)
-                    soundController.stopRecording();
-                else
-                    soundController.startRecording();
-            })
-
-            $('#file').change(function (e) {
-                var file = e.target.files[0];
-                var stream = ss.createStream();
-
-                // upload a file to the server.
-                ss(socket).emit('file', stream, { size: file.size });
-                ss.createBlobReadStream(file).pipe(stream);
-            });
-        };
-    </script>
-</head>
-<body>
-    <h1>Radio Runners</h1>
-    <div id="info">
-        Info
-    </div>
-    <button id="play">Play/pause</button><br />
-    <input id="file" type="file" />
-</body>
+    <head>
+        <script src="https://simplewebrtc.com/latest-v2.js"></script>
+	<script src="js/chat.js"></script>
+        <style>
+            #remoteVideos video {
+                height: 150px;
+            }
+            #localVideo {
+                height: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <video id="localVideo"></video>
+        <div id="remoteVideos"></div>
+    </body>
 </html>
