@@ -1,0 +1,5 @@
+-#!/bin/sh              
+ #cd /var/lib/jenkins/workplace/RadioRunnersPipeline/NodeJsWebApp2         
+ pm2 restart all
+ exit       
+EOF
